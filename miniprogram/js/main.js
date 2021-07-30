@@ -1,9 +1,10 @@
-import Player     from './player/index'
+import Cat from './cat/index'
 import Enemy      from './npc/enemy'
 import BackGround from './runtime/background'
 import GameInfo   from './runtime/gameinfo'
 import Music      from './runtime/music'
 import DataBus    from './databus'
+
 
 let ctx   = canvas.getContext('2d')
 let databus = new DataBus()
@@ -74,6 +75,7 @@ export default class Main {
     // this.player   = new Player(ctx)
     this.gameinfo = new GameInfo()
     this.music    = new Music()
+    this.cat = new Cat(ctx)
 
     this.bindLoop     = this.loop.bind(this)
     this.hasEventBind = false
@@ -187,6 +189,7 @@ export default class Main {
             })
 
     // this.player.drawToCanvas(ctx)
+    this.cat.drawToCanvas(ctx)
 
     databus.animations.forEach((ani) => {
       if ( ani.isPlaying ) {

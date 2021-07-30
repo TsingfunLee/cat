@@ -16,6 +16,8 @@ export default class Cat extends Sprite {
     this.x = screenWidth / 2 - this.width / 2
     this.y = screenHeight /2 - this.height / 2
 
+    this.touched = false
+
     // 初始化事件监听
     this.initEvent()
   }
@@ -35,7 +37,7 @@ export default class Cat extends Sprite {
       if ( this.checkIsFingerOnAir(x, y) ) {
         this.touched = true
 
-        this.setAirPosAcrossFingerPosZ(x, y)
+        console.log('miao')
       }
 
     }).bind(this))
@@ -46,8 +48,8 @@ export default class Cat extends Sprite {
       let x = e.touches[0].clientX
       let y = e.touches[0].clientY
 
-      if ( this.touched )
-        this.setAirPosAcrossFingerPosZ(x, y)
+      
+        
 
     }).bind(this))
 
@@ -56,5 +58,21 @@ export default class Cat extends Sprite {
 
       this.touched = false
     }).bind(this))
+  }
+
+/**
+ * 当手指触摸屏幕的时候
+ * 判断手指是否在飞机上
+ * @param {Number} x: 手指的X轴坐标
+ * @param {Number} y: 手指的Y轴坐标
+ * @return {Boolean}: 用于标识手指是否在飞机上的布尔值
+ */
+  checkIsFingerOnAir(x, y) {
+  const deviation = 30
+
+  return !!(   x >= this.x - deviation
+            && y >= this.y - deviation
+            && x <= this.x + this.width + deviation
+            && y <= this.y + this.height + deviation  )
   }
 }
